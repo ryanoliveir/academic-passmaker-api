@@ -20,12 +20,12 @@ class Database():
 
         # Create some services (assuming you have a Service class)
         # You may need to adapt this part based on your actual Service implementation
-        service1 = Service(name="Service1", site="www.google.com", userEmailService="john@google.com", servicePassword="john123")
-        service2 = Service(name="Service2", site="www.facebook.com", userEmailService="jane@facebook.com", servicePassword="jane123")
+        service1 = Service(name="Google Account", site="www.google.com", userEmailService="john@google.com", servicePassword="john123")
+        service2 = Service(name="Facebook Account", site="www.facebook.com", userEmailService="jane@facebook.com", servicePassword="jane123")
 
         # Create some accounts
         premium_account1 = PremiumAccount(user=user1, password="password123", servicesList=[service1, service2], unlimitedService=True)
-        commun_account1 = CommunAccount(user=user2, password="pass456", servicesList=[service1])
+        commun_account1 = CommunAccount(user=user2, password="pass456", servicesList=[service1], unlimitedService=False, maxServicesAllowed=5)
 
         # Add the created objects to the database
         self._users.extend([user1, user2])
@@ -37,3 +37,9 @@ class Database():
 
     def get_users(self):
         return self._users
+    
+    def get_services(self):
+        return self._services
+    
+    def get_accounts(self):
+        return self._accounts

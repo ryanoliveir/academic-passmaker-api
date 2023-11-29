@@ -14,10 +14,72 @@ def users():
     users_list = db.get_users()
     response = []
     for user in users_list:
-        currentUser = {'id_user': user.id_user, 'name': user.email ,'email': user.email}
+
+        currentUser = {
+            'id_user': user.id_user, 
+            'name': user.email ,
+            'email': user.email
+        }
+
         response.append(currentUser)
-#
-    return make_response(jsonify(response),200 )
+        
+    return make_response(jsonify(response), 200)
+
+
+
+
+@api.route('/services')
+def services():
+    
+    services_list = db.get_services()
+    response = []
+    for service in services_list:
+
+        currentService = {
+            'id_service': service.id_service, 
+            'user': service.name,
+            'site': service.site, 
+            'userEmailService': service.userEmailService, 
+            'servicePassword': service.servicePassword
+        }
+
+        response.append(currentService)
+        
+    return make_response(jsonify(response), 200)
+
+
+
+
+
+@api.route('/accounts')
+def accounts():
+    
+    accounts_list = db.get_accounts()
+
+
+    response = []
+    for account in accounts_list:
+
+        currentAccount = {
+            'id_account': account.id_account, 
+            'user': {
+                'id_user': account.user.id_user, 
+                'name': account.user.email ,
+                'email': account.user.email
+            },
+            'password': account.password, 
+            'servicesList': [service.to_dict() for service in account.servicesList], 
+            'unlimitedService': account.unlimitedService,
+            'servicesAmmount': account.maxServicesAllowed if account.unlimitedService == False else "Unlimited"
+        }
+
+        response.append(currentAccount)
+        
+    return make_response(jsonify(response), 200)
+
+
+
+
 
 
 @api.route('/')
