@@ -1,7 +1,7 @@
-from models.account import Account
-from models.password import Password
-from models.service import Service
-from models.user import User
+from model.account import Account
+from model.password import Password
+from model.service import Service
+from model.user import User
 
 
 class CommunAccount(Account):

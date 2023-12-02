@@ -1,4 +1,4 @@
-from models.client import Client
+from model.client import Client
 
 
 # classe para pegar e mandar dados para a api

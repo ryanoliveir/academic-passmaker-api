@@ -1,7 +1,7 @@
-from models.user import User
-from models.premiumAccount import  PremiumAccount
-from models.communAccount import CommunAccount
-from models.service import Service
+from model.user import User
+from model.premiumAccount import  PremiumAccount
+from model.communAccount import CommunAccount
+from model.service import Service
 
 
 class Database():

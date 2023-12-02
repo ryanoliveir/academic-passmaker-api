@@ -1,6 +1,6 @@
-from models.user import User
-from models.password import Password
-from models.service import Service
+from model.user import User
+from model.password import Password
+from model.service import Service
 
 
 class Account():
