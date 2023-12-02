@@ -1,4 +1,4 @@
-from models.password import Password
+from model.password import Password
 
 class Service():
     id_service = 0
