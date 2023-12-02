@@ -28,24 +28,38 @@ def users():
 
 
 
-@api.route('/services')
+@api.route('/services', methods=['GET', 'POST'])
 def services():
+
+    if request.method == 'GET':
     
-    services_list = db.get_services()
-    response = []
-    for service in services_list:
+        services_list = db.get_services()
+        response = []
+        for service in services_list:
 
-        currentService = {
-            'id_service': service.id_service, 
-            'user': service.name,
-            'site': service.site, 
-            'userEmailService': service.userEmailService, 
-            'servicePassword': service.servicePassword
-        }
+            currentService = {
+                'id_service': service.id_service, 
+                'user': service.name,
+                'site': service.site, 
+                'userEmailService': service.userEmailService, 
+                'servicePassword': service.servicePassword
+            }
 
-        response.append(currentService)
-        
-    return make_response(jsonify(response), 200)
+            response.append(currentService)
+
+        return make_response(jsonify(response), 200)
+
+    elif request.method == 'POST':
+        body = request.get_json()
+
+        print(body)
+
+
+        return make_response(jsonify({'message': 'Sucesss', 'status': 200}))
+
+    else:
+         return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
+    
 
 
 
