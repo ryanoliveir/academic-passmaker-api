@@ -19,5 +19,10 @@ class Client:
         return response_dict
 
 
+    def getService(self, id_account, endpoint):
+        response = requests.get(self.host + self.api + endpoint + '/?id_account=' + str(id_account))
+        response_dict = json.loads(response.text)
+        return response_dict
+
     def printJson(self, data):
         print(json.dumps(data, indent=1))

@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, make_response, Blueprint
 from database.db import Database
+from model.service import Service
+from model.password import Password
 
 app = Flask(__name__)
 
@@ -39,7 +41,7 @@ def services():
 
             currentService = {
                 'id_service': service.id_service, 
-                'user': service.name,
+                'name': service.name,
                 'site': service.site, 
                 'userEmailService': service.userEmailService, 
                 'servicePassword': service.servicePassword
@@ -52,10 +54,53 @@ def services():
     elif request.method == 'POST':
         body = request.get_json()
 
-        print(body)
+        account_id = int(body['account_id'])
+        newPassword = Password(body['servicePassword'])
 
+        newService = Service(
+            body['name'], 
+            body['site'], 
+            body['userEmailService'],
+            newPassword
+        )
+
+
+        db.createService(newService, account_id)
+        
+        
 
         return make_response(jsonify({'message': 'Sucesss', 'status': 200}))
+
+    else:
+         return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
+    
+@api.route('/service/', methods=['GET', 'POST'])
+def service():
+
+    if request.method == 'GET':
+
+        args = request.args
+        services_list = db.get_AccountServices(int(args.get('id_account')))
+
+        response = [
+            {
+                'id_account':  int(args.get('id_account'))
+            }
+        ]
+
+        for service in services_list:
+
+            currentService = {
+                'id_service': service.id_service, 
+                'name': service.name,
+                'site': service.site, 
+                'userEmailService': service.userEmailService, 
+                'servicePassword': service.servicePassword
+            }
+
+            response.append(currentService)
+
+        return make_response(jsonify(response), 200)
 
     else:
          return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))

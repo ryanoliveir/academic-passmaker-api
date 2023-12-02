@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
 
-    services = client.getServices('/services')
-    contas = client.getAccounts('/accounts')
+    # services = client.getServices('/services')
+    service = client.getService(3,'/service')
 
-    client.printJson(services)
+    client.printJson(service)
