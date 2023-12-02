@@ -18,5 +18,6 @@ if __name__ == '__main__':
 
 
     services = client.getServices('/services')
+    contas = client.getAccounts('/accounts')
 
     client.printJson(services)
