@@ -26,3 +26,12 @@ class Client:
 
     def printJson(self, data):
         print(json.dumps(data, indent=1))
+
+
+    def signIn(self, payload, endpoint):
+        response = requests.post(self.host + self.api + endpoint, json=payload)
+        if(response.status_code == 401):
+            return None
+        
+        response_dict = json.loads(response.text)
+        return response_dict

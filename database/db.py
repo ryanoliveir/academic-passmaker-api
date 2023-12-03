@@ -17,7 +17,7 @@ class Database():
         # Create some users
         user1 = User(name="john_doe",email="john_doe@gmail.com")
         user2 = User(name="jane_smith", email="jane_smith@gmail.com")
-        user3 = User(name="ryan_oliveira", email="ryan_oliveira@gmail.com")
+        user3 = User(name="ryan_oliveira", email="ryan@gmail.com")
 
         # Create some services (assuming you have a Service class)
         # You may need to adapt this part based on your actual Service implementation
@@ -28,7 +28,7 @@ class Database():
         # Create some accounts
         premium_account1 = PremiumAccount(user=user1, password="password123", servicesList=[service1, service2], unlimitedService=True)
         commun_account1 = CommunAccount(user=user2, password="pass456", servicesList=[service2], unlimitedService=False, maxServicesAllowed=5)
-        commun_account2 = CommunAccount(user=user3, password="pass456", servicesList=[service3], unlimitedService=False, maxServicesAllowed=5)
+        commun_account2 = CommunAccount(user=user3, password="cyma102030", servicesList=[service3], unlimitedService=False, maxServicesAllowed=5)
 
         # Add the created objects to the database
         self._users.extend([user1, user2])

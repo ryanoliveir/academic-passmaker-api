@@ -74,7 +74,7 @@ def services():
     else:
          return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
     
-@api.route('/service/', methods=['GET', 'POST'])
+@api.route('/service', methods=['GET', 'POST'])
 def service():
 
     if request.method == 'GET':
@@ -106,10 +106,6 @@ def service():
          return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
     
 
-
-
-
-
 @api.route('/accounts')
 def accounts():
     
@@ -137,8 +133,31 @@ def accounts():
     return make_response(jsonify(response), 200)
 
 
+@api.route('/login', methods=['POST'])
+def login():
+    response_error = { "error": "login error"}
+    response_sucess = { "sucess": "login sucess"}
+    response = []
+    body = request.get_json()
 
+    
+    accounts = db.get_accounts()
 
+    for account in accounts:
+        if (account.user.email == body['email']) and (account.password == body['password']):
+            print(account.user.email, account.password)
+        
+            response = {
+                'id_account': account.id_account,
+                'user': { 'name': account.user.name , 'email': account.user.email },
+            }
+
+            print(response)
+
+            return make_response(jsonify(response), 200)
+        
+
+    return make_response(jsonify(response_error), 401)
 
 
 @api.route('/')
