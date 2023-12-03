@@ -28,28 +28,31 @@ def users():
     return make_response(jsonify(response), 200)
 
 
-
-
-@api.route('/services', methods=['GET', 'POST'])
+@api.route('/services/', methods=['GET', 'POST'])
 def services():
 
     if request.method == 'GET':
-    
-        services_list = db.get_services()
         response = []
-        for service in services_list:
+        args = request.args
 
-            currentService = {
-                'id_service': service.id_service, 
-                'name': service.name,
-                'site': service.site, 
-                'userEmailService': service.userEmailService, 
-                'servicePassword': service.servicePassword
-            }
+        if args:
+            
+            account_services_list  = db.get_AccountServices(int(args.get('id_account')))
+            for service in account_services_list:
 
-            response.append(currentService)
+                currentServices = {
+                    'id_service': service.id_service, 
+                    'name': service.name,
+                    'site': service.site, 
+                    'userEmailService': service.userEmailService, 
+                    'servicePassword': service.servicePassword
+                }
 
-        return make_response(jsonify(response), 200)
+                response.append(currentServices)
+            
+            return make_response(jsonify(response), 200)
+        else:
+             return make_response(jsonify({"error": "args missing"}), 400)
 
     elif request.method == 'POST':
         body = request.get_json()
@@ -67,14 +70,14 @@ def services():
 
         db.createService(newService, account_id)
         
-        
-
         return make_response(jsonify({'message': 'Sucesss', 'status': 200}))
 
     else:
          return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
-    
-@api.route('/service', methods=['GET', 'POST'])
+
+
+# fix this endpoint !!!
+@api.route('/service/', methods=['GET', 'POST'])
 def service():
 
     if request.method == 'GET':
