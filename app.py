@@ -28,7 +28,7 @@ def users():
     return make_response(jsonify(response), 200)
 
 
-@api.route('/services/', methods=['GET', 'POST'])
+@api.route('/services/', methods=['GET', 'POST', 'DELETE'])
 def services():
 
     if request.method == 'GET':
@@ -72,8 +72,32 @@ def services():
         
         return make_response(jsonify({'message': 'Sucesss', 'status': 200}))
 
+    elif request.method == 'DELETE':
+
+        serviceDeleted = False
+        args = request.args
+
+        account_id = int(args.get('id_account'))
+        service_id = int(args.get('id_service'))
+
+        account_services = db.get_AccountServices(account_id)
+
+        for account_service in account_services:
+            print('Account service: ' + account_service.name)
+            if(account_service.id_service ==  service_id):
+                print(f'Account service: {account_service.name} [{service_id}] Must be delete')
+                db.delete_AccountService(account_service.id_service, account_id)
+                serviceDeleted = True
+                
+
+        
+        if(serviceDeleted):
+            return make_response(jsonify({'message': 'Service removed', 'status': 200},), 200)
+        
+        return make_response(jsonify({'message': 'Error in delete service', 'status': 400}), 400)
+
     else:
-         return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
+        return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
 
 
 # fix this endpoint !!!

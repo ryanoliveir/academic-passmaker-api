@@ -27,13 +27,13 @@ class Database():
 
         # Create some accounts
         premium_account1 = PremiumAccount(user=user1, password="password123", servicesList=[service1, service2], unlimitedService=True)
-        commun_account1 = CommunAccount(user=user2, password="pass456", servicesList=[service2], unlimitedService=False, maxServicesAllowed=5)
-        commun_account2 = CommunAccount(user=user3, password="cyma102030", servicesList=[service3], unlimitedService=False, maxServicesAllowed=5)
+        commun_account2 = CommunAccount(user=user2, password="pass456", servicesList=[service2], unlimitedService=False, maxServicesAllowed=5)
+        commun_account3 = CommunAccount(user=user3, password="cyma102030", servicesList=[service3], unlimitedService=False, maxServicesAllowed=5)
 
         # Add the created objects to the database
         self._users.extend([user1, user2])
         self._services.extend([service1, service2, service3])
-        self._accounts.extend([premium_account1, commun_account1, commun_account2])
+        self._accounts.extend([premium_account1, commun_account2, commun_account3])
 
         print("Database initialization complete.")
 
@@ -59,3 +59,15 @@ class Database():
              if(account.id_account == id_account):
                 return account.servicesList
     
+
+    def delete_AccountService(self, id_service, id_account):
+        for account in self._accounts:
+            if account.id_account == id_account:
+
+                for service in account.servicesList:
+                    if(service.id_service == id_service):
+
+                        account.servicesList.remove(service)
+                        print(f"Service with id {id_service} deleted successfully.")
+                        return
+
