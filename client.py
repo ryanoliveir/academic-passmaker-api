@@ -50,6 +50,13 @@ def update_service():
 
 def remove_service():
     print("Removing a service...")
+
+
+    id_account = 1
+    id_service = 2
+    removed = client.deleteAccountService(id_account, id_service, '/services')
+    print(removed)
+
     input()
     # Add your logic to remove a service
 
