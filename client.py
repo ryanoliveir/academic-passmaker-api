@@ -22,9 +22,19 @@ def clear():
     print('Welcome to P A S S  M A K E R !\n\n')
 
 
-def view_all_services():
+def view_all_services(id_account):
     
     print("Viewing all services...")
+
+    
+    current_services = client.getServices(f'/services/?id_account={id_account}')
+
+    for service in current_services:
+        name_service = service['name']
+        print(name_service)
+    
+    client.printJson(current_services)
+
     input()
     # Add your logic to display all services
 
@@ -57,14 +67,16 @@ def menu():
 
 
 
-def home():
+def home(current_account):
     while True:
-        clear();
+        clear()
         print_menu()
+        print(current_account['user']['name'])
+        current_id = current_account['id_account']
         option = menu()
 
         if option == 1:
-            view_all_services()
+            view_all_services(current_id)
         elif option == 2:
             add_new_service()
         elif option == 3:
@@ -88,7 +100,7 @@ def login():
 
     if(account):
         clear()
-        return home()
+        return home(account)
     else: 
         clear()
         login()
