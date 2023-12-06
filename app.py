@@ -40,16 +40,21 @@ def services():
             account_services_list  = db.get_AccountServices(int(args.get('id_account')))
             for service in account_services_list:
 
-                currentServices = {
+                currentService = {
                     'id_service': service.id_service, 
                     'name': service.name,
                     'site': service.site, 
                     'userEmailService': service.userEmailService, 
-                    'servicePassword': service.servicePassword
+                    'servicePassword': service.servicePassword.password(),
                 }
 
-                response.append(currentServices)
+                print(currentService) 
+                print("\n\n")
+                response.append(currentService)
+
             
+            print(response)
+
             return make_response(jsonify(response), 200)
         else:
              return make_response(jsonify({"error": "args missing"}), 400)
@@ -66,7 +71,6 @@ def services():
             body['userEmailService'],
             newPassword
         )
-
 
         db.createService(newService, account_id)
         
