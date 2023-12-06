@@ -1,3 +1,4 @@
+from model.password import Password
 from model.user import User
 from model.premiumAccount import  PremiumAccount
 from model.communAccount import CommunAccount
@@ -23,11 +24,11 @@ class Database():
 
         # Create some services (assuming you have a Service class)
         # You may need to adapt this part based on your actual Service implementation
-        service1 = Service(name="Google Account", site="www.google.com", userEmailService="john@google.com", servicePassword="john123")
-        service2 = Service(name="Facebook Account", site="www.facebook.com", userEmailService="jane@facebook.com", servicePassword="jane123")
-        service3 = Service(name="Insagram Account", site="www.instagram.com", userEmailService="ryan@gmail.com", servicePassword="ryan102030")
-        service4 = Service(name="Test Website", site="www.test.com", userEmailService="TheGreatTester@test.com", servicePassword="RyanWest35")
-        service5 = Service(name="THE HAMMER TIME", site="www.hammertime.com", userEmailService="HAMMERTIME@HAMMER.hammer", servicePassword="TheHammer06")
+        service1 = Service(name="Google Account", site="www.google.com", userEmailService="john@google.com", servicePassword=Password("john123"))
+        service2 = Service(name="Facebook Account", site="www.facebook.com", userEmailService="jane@facebook.com", servicePassword=Password("jane123"))
+        service3 = Service(name="Insagram Account", site="www.instagram.com", userEmailService="ryan@gmail.com", servicePassword=Password("ryan102030"))
+        service4 = Service(name="Test Website", site="www.test.com", userEmailService="TheGreatTester@test.com", servicePassword=Password("RyanWest35"))
+        service5 = Service(name="THE HAMMER TIME", site="www.hammertime.com", userEmailService="HAMMERTIME@HAMMER.hammer", servicePassword=Password("TheHammer06"))
 
 
         # Create some accounts

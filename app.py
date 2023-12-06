@@ -45,11 +45,9 @@ def services():
                     'name': service.name,
                     'site': service.site, 
                     'userEmailService': service.userEmailService, 
-                    'servicePassword': service.servicePassword.password(),
+                    'servicePassword': service.servicePassword.password,
                 }
 
-                print(currentService) 
-                print("\n\n")
                 response.append(currentService)
 
             
@@ -126,7 +124,7 @@ def service():
                 'name': service.name,
                 'site': service.site, 
                 'userEmailService': service.userEmailService, 
-                'servicePassword': service.servicePassword
+                'servicePassword': service.servicePassword.password
             }
 
             response.append(currentService)
