@@ -63,8 +63,6 @@ def add_new_service(id_account):
     new_service_email = input("Insert Service Email: ")
     new_service_password = input("Insert Service Password: ")
 
-
-
     payload = {
         "account_id": int(id_account),
         "name": new_service_name,
@@ -73,21 +71,15 @@ def add_new_service(id_account):
         "servicePassword": new_service_password
     }
 
-
     response = client.createServices(payload, '/services/')
 
     print(response)
     input()
 
-
     print('\033[92m',end="")
     print("\nService added successfully!")
     print('\033[0m',end="")
     time.sleep(0.7)
-
-
-
-
 
 
 #linha 141 e 142, os ID são para teste, é preciso relacionar com a conta
@@ -179,7 +171,6 @@ def remove_service(account_id):
     time.sleep(0.7)
     return
 
-
 def print_menu():
    
     for index, menu_option in enumerate(menu_options, start=1):
@@ -212,7 +203,7 @@ def home(current_account):
         elif option == 4:
             update_service(current_account_id)
         else:
-            print()
+            input()  
 def login():
     clear()
     colorprint('Login', 'green')
