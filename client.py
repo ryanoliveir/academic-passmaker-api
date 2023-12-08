@@ -212,8 +212,7 @@ def home(current_account):
         elif option == 4:
             update_service(current_account_id)
         else:
-            print("Invalid option. Please choose a valid option. (Enter to continue)")
-            input()      
+            print()
 def login():
     clear()
     colorprint('Login', 'green')
