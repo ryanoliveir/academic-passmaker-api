@@ -28,7 +28,7 @@ def users():
     return make_response(jsonify(response), 200)
 
 
-@api.route('/services/', methods=['GET', 'POST', 'DELETE'])
+@api.route('/services/', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def services():
 
     if request.method == 'GET':
@@ -98,8 +98,42 @@ def services():
         
         return make_response(jsonify({'message': 'Error in delete service', 'status': 400}), 400)
 
+    elif request.method == 'PUT':
+        body = request.get_json()
+
+        args = request.args
+
+        account_id = int(args.get('id_account'))
+        id_service = int(args.get('id_service'))
+
+        account_services = db.get_AccountServices(account_id)
+        
+        # Verifica se o serviço com o id_service existe no banco de dados
+        for account_service in account_services:
+                if(account_service.id_service ==  id_service):
+                    service = account_service
+        if service:
+            # Atualize os campos do serviço com base no corpo da solicitação
+            if 'name' in body:
+                service.name = body['name']
+            if 'site' in body:
+                service.site = body['site']
+            if 'userEmailService' in body:
+                service.userEmailService = body['userEmailService']
+            if 'servicePassword' in body:
+                service.servicePassword = Password(body['servicePassword'])
+
+            # Salve a atualização no banco de dados
+            db.update_Service(service)
+
+            return make_response(jsonify({'message': 'Service updated', 'status': 200}), 200)
+        else:
+            return make_response(jsonify({'message': 'Service not found', 'status': 404}), 404)
+
     else:
         return make_response(jsonify({'message': 'Method not allowed', 'status': 405}))
+    
+
 
 
 # fix this endpoint !!!

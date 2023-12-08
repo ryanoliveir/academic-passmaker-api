@@ -78,4 +78,15 @@ class Database():
                         account.servicesList.remove(service)
                         print(f"Service with id {id_service} deleted successfully.")
                         return
+    
+    def update_Service(self, service):
+        for existing_service in self._services:
+            if existing_service.id_service == service.id_service:
+                # Atualize os campos do serviço existente com base no novo serviço
+                existing_service.name = service.name
+                existing_service.site = service.site
+                existing_service.userEmailService = service.userEmailService
+                existing_service.servicePassword = service.servicePassword
+                return
+
 
