@@ -44,3 +44,12 @@ class Client:
         
         response_dict = json.loads(response.text)
         return response_dict
+    
+    def updateAccountService(self, id_account, id_service, endpoint, payload):
+        response = requests.put(self.host + self.api + f'{endpoint}/?id_account={id_account}&id_service={id_service}', json=payload)
+
+        if response.status_code == 400:
+            return None
+
+        response_dict = json.loads(response.text)
+        return response_dict

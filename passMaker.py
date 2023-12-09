@@ -110,18 +110,52 @@ def update_service(id_account):
         colorprint("ID", 'green')
         print(": "+ str(id))
 
-    input("\nInsert the ID to update: ")
+    id_update = input("\nInsert the ID to update: ")
 
-    print('\033[92m',end="")
-    print("\nService successfully update!")
-    print('\033[0m',end="")
-    time.sleep(0.7)
+    for current_service in current_services: 
+        if current_service['id_service'] == int(id_update):
+            print("\nService found!\n")
 
-    print('\033[91m',end="")
-    print("\nSome error has occurred!!")
-    print('\033[0m',end="")
-    time.sleep(0.7)
-    input()
+            clear()
+            new_name = input("Enter new name: ")
+            new_email = input("Enter new email: ")
+            new_password = input("Enter new password: ")
+            new_url = input("Enter new website URL: ")
+
+            updated_service = {
+                'name': new_name,
+                'userEmailService': new_email,
+                'servicePassword': new_password,
+                'site': new_url
+            }
+
+            updated = client.updateAccountService(id_account, int(id_update), '/services', updated_service)
+
+            if updated:
+                print('\033[92m', end="")
+                print("\nService successfully updated!")
+                print('\033[0m', end="")
+                time.sleep(0.7)
+                return
+
+
+            input("(1) Return ")
+            return
+
+    print("\nService not found!\n")
+    input("(1) Return ")
+    return
+
+    # print('\033[92m',end="")
+    # print("\nService successfully update!")
+    # print('\033[0m',end="")
+    # time.sleep(0.7)
+
+    # print('\033[91m',end="")
+    # print("\nSome error has occurred!!")
+    # print('\033[0m',end="")
+    # time.sleep(0.7)
+    # input()
 
 def remove_service(account_id):
 
