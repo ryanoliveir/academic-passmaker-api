@@ -73,8 +73,8 @@ def add_new_service(id_account):
 
     response = client.createServices(payload, '/services/')
 
-    print(response)
-    input()
+    # print(response)
+    # input()
 
     print('\033[92m',end="")
     print("\nService added successfully!")
@@ -82,11 +82,10 @@ def add_new_service(id_account):
     time.sleep(0.7)
 
 
-#linha 141 e 142, os ID são para teste, é preciso relacionar com a conta
 def update_service(id_account):
     clear()
     print("Select the service to ",end="")
-    colorprint("update",'green')
+    colorprint("Update",'green')
     print("\n---------------------------------------------------------\n")
     current_services = client.getServices(f'/services/?id_account={id_account}')
 
@@ -117,10 +116,12 @@ def update_service(id_account):
             print("\nService found!\n")
 
             clear()
-            new_name = input("Enter new name: ")
-            new_email = input("Enter new email: ")
-            new_password = input("Enter new password: ")
-            new_url = input("Enter new website URL: ")
+            print("Update Service")
+            print("\n---------------------------------------------------------\n")
+            new_name = input("Update Service name: ")
+            new_email = input("Update Service email: ")
+            new_password = input("Update Service password: ")
+            new_url = input("Update Service website URL: ")
 
             updated_service = {
                 'name': new_name,
@@ -143,19 +144,9 @@ def update_service(id_account):
             return
 
     print("\nService not found!\n")
-    input("(1) Return ")
+    input("(1) Return ")
     return
 
-    # print('\033[92m',end="")
-    # print("\nService successfully update!")
-    # print('\033[0m',end="")
-    # time.sleep(0.7)
-
-    # print('\033[91m',end="")
-    # print("\nSome error has occurred!!")
-    # print('\033[0m',end="")
-    # time.sleep(0.7)
-    # input()
 
 def remove_service(account_id):
 
